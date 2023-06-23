@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_learn/components/button_icon.dart';
 import 'package:flutter_learn/components/navigation_bar.dart';
 import 'package:flutter_learn/services/auth_service.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,42 +30,31 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    double displayWidth = MediaQuery.of(context).size.width;
     double displayHeight = MediaQuery.of(context).size.height;
-    return Scaffold(
-      body: SafeArea(
-        bottom: false,
-        child: Container(
-          height: displayHeight,
-          padding: const EdgeInsets.only(top: 20, left: 33, right: 33),
-          child: Column(
-            children: [
-              _topBar(),
-              const SizedBox(
-                height: 40,
-              ),
-              _balanceCard(),
-              const SizedBox(
-                height: 40,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _homeActionButton('Transfer', Icons.receipt_long_outlined),
-                  _homeActionButton('Payment', Icons.upload_outlined),
-                  _homeActionButton('Payout', Icons.attach_money_outlined),
-                  _homeActionButton('Top up', Icons.add_circle_outline),
-                ],
-              ),
-              const SizedBox(
-                height: 44,
-              ),
-              _transactions(context),
-            ],
-          ),
+    return Column(
+      children: [
+        _topBar(),
+        const SizedBox(
+          height: 40,
         ),
-      ),
-      bottomNavigationBar: FloatingNavigationBar(),
+        _balanceCard(),
+        const SizedBox(
+          height: 40,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _homeActionButton('Transfer', Icons.receipt_long_outlined),
+            _homeActionButton('Payment', Icons.upload_outlined),
+            _homeActionButton('Payout', Icons.attach_money_outlined),
+            _homeActionButton('Top up', Icons.add_circle_outline),
+          ],
+        ),
+        const SizedBox(
+          height: 44,
+        ),
+        _transactions(context),
+      ],
     );
   }
 }
