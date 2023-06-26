@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_learn/firebase_options.dart';
 import 'package:flutter_learn/pages/home_page.dart';
+import 'package:flutter_learn/themes/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,33 +22,9 @@ class MyApp extends StatelessWidget {
       // routeInformationProvider: _router.routeInformationProvider,
       debugShowCheckedModeBanner: false,
       title: 'Wallet app',
-      theme: ThemeData(
-        fontFamily: 'Rubik',
-        primarySwatch: mycolor,
-        useMaterial3: true,
-        textTheme: const TextTheme(
-          displayLarge: TextStyle(fontSize: 72, fontWeight: FontWeight.bold),
-          titleLarge: TextStyle(fontSize: 36, fontStyle: FontStyle.italic),
-          bodyMedium: TextStyle(fontSize: 14, fontFamily: 'Hind'),
-        ),
-      ),
+      theme: lightTheme,
+      darkTheme: darkTheme,
       home: const HomePage(),
     );
   }
 }
-
-MaterialColor mycolor = const MaterialColor(
-  0xFF9775FA,
-  <int, Color>{
-    50: Color(0xFF9775FA),
-    100: Color(0xFF9775FA),
-    200: Color(0xFF9775FA),
-    300: Color(0xFF9775FA),
-    400: Color(0xFF9775FA),
-    500: Color(0xFF9775FA),
-    600: Color(0xFF9775FA),
-    700: Color(0xFF9775FA),
-    800: Color(0xFF9775FA),
-    900: Color(0xFF9775FA),
-  },
-);
