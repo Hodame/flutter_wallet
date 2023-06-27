@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_learn/components/myTextField.dart';
+import 'package:flutter_learn/components/productCard.dart';
 import 'package:flutter_learn/services/auth_service.dart';
 import 'package:flutter_learn/themes/theme.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -60,14 +61,16 @@ class _HomePageState extends State<HomePage> {
         color: Theme.of(context).colorScheme.onBackground,
         activeColor: Theme.of(context).colorScheme.primary,
         rippleColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-        tabs: const [
+        tabs: [
           GButton(
             icon: Icons.home_outlined,
             text: 'Home',
+            onPressed: () => context.go('/'),
           ),
           GButton(
             icon: Icons.favorite_outline_rounded,
             text: 'WishList',
+            onPressed: () => context.go('/wishlist'),
           ),
           GButton(
             icon: Icons.local_mall_outlined,
@@ -238,27 +241,8 @@ class NewArravial extends StatelessWidget {
           itemBuilder: (context, index) {
             return InkWell(
               borderRadius: BorderRadius.circular(10),
-              onTap: () {},
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.surface,
-                        borderRadius: BorderRadius.circular(15)),
-                    child: Image.network(
-                        'https://content.rezetstore.dk/sites/default/files/styles/product_display_teaser_mobile/public/PIM-images/nike/2307569/nike-tech-woven-jacket-cobblestone-black-2307569-v2-759048.png'),
-                  ),
-                  const Text(
-                    'Nike Sportswear Club Fleece',
-                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
-                  ),
-                  const Text(
-                    '\$99',
-                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
-                  )
-                ],
-              ),
+              onTap: () => context.go('/product/1'),
+              child: ProductCard(),
             );
           },
         ),

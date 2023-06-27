@@ -7,7 +7,7 @@ ThemeData lightTheme = ThemeData(
   appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white,
       elevation: 0,
-      titleTextStyle: TextStyle(color: Colors.black)),
+      titleTextStyle: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.w600)),
   colorScheme: ColorScheme.light(
       brightness: Brightness.light,
       primary: mycolor,
@@ -25,7 +25,7 @@ ThemeData darkTheme = ThemeData(
       backgroundColor: Color(0xFF1B262C),
       foregroundColor: Color(0xFF1B262C),
       elevation: 0,
-      titleTextStyle: TextStyle(color: Colors.black)),
+      titleTextStyle: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w600)),
   colorScheme: ColorScheme.dark(
     brightness: Brightness.dark,
     primary: mycolor,
