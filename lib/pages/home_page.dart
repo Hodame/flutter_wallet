@@ -32,55 +32,24 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(
-      //     'Home',
-      //     style: Theme.of(context).textTheme.titleSmall,
-      //   ),
-      //   centerTitle: true,
-      // ),
-      body: const SafeArea(
+    return const Scaffold(
+      body: SafeArea(
         child: Padding(
           padding: EdgeInsets.only(left: 20, right: 20),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Header(),
-                ChooseBrand(),
-                NewArravial(),
-              ],
+          child: ScrollConfiguration(
+            behavior: ScrollBehavior(),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Header(),
+                  ChooseBrand(),
+                  NewArravial(),
+                ],
+              ),
             ),
           ),
         ),
-      ),
-      bottomNavigationBar: GNav(
-        gap: 15,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        color: Theme.of(context).colorScheme.onBackground,
-        activeColor: Theme.of(context).colorScheme.primary,
-        rippleColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-        tabs: [
-          GButton(
-            icon: Icons.home_outlined,
-            text: 'Home',
-            onPressed: () => context.go('/'),
-          ),
-          GButton(
-            icon: Icons.favorite_outline_rounded,
-            text: 'WishList',
-            onPressed: () => context.go('/wishlist'),
-          ),
-          GButton(
-            icon: Icons.local_mall_outlined,
-            text: 'Cart',
-          ),
-          GButton(
-            icon: Icons.person_outline_rounded,
-            text: 'Profile',
-          ),
-        ],
       ),
     );
   }
@@ -126,7 +95,7 @@ class Header extends StatelessWidget {
                   onTap: () {},
                   borderRadius: BorderRadius.circular(10),
                   child: Ink(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Theme.of(context).colorScheme.primary),
@@ -241,8 +210,8 @@ class NewArravial extends StatelessWidget {
           itemBuilder: (context, index) {
             return InkWell(
               borderRadius: BorderRadius.circular(10),
-              onTap: () => context.go('/product/1'),
-              child: ProductCard(),
+              onTap: () => context.push('/product/1'),
+              child: const ProductCard(),
             );
           },
         ),

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 ThemeData lightTheme = ThemeData(
+  splashFactory: InkSplash.splashFactory,
   splashColor: mycolor.withOpacity(0.3),
   useMaterial3: true,
   brightness: Brightness.light,
   appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white,
       elevation: 0,
-      titleTextStyle: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.w600)),
+      titleTextStyle: TextStyle(
+          color: Colors.black, fontSize: 17, fontWeight: FontWeight.w600)),
   colorScheme: ColorScheme.light(
       brightness: Brightness.light,
       primary: mycolor,
@@ -18,6 +20,7 @@ ThemeData lightTheme = ThemeData(
 );
 
 ThemeData darkTheme = ThemeData(
+  splashFactory: InkSplash.splashFactory,
   splashColor: mycolor.withOpacity(0.3),
   useMaterial3: true,
   brightness: Brightness.dark,
@@ -25,7 +28,8 @@ ThemeData darkTheme = ThemeData(
       backgroundColor: Color(0xFF1B262C),
       foregroundColor: Color(0xFF1B262C),
       elevation: 0,
-      titleTextStyle: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w600)),
+      titleTextStyle: TextStyle(
+          color: Colors.white, fontSize: 17, fontWeight: FontWeight.w600)),
   colorScheme: ColorScheme.dark(
     brightness: Brightness.dark,
     primary: mycolor,

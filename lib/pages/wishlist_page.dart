@@ -13,62 +13,84 @@ class WishListPage extends StatelessWidget {
           centerTitle: true,
           title: Text('Wishlist'),
           leadingWidth: 100,
-          leading: IconButton.outlined(
+          leading: IconButton(
             padding: const EdgeInsets.all(15),
-            onPressed: () => context.go('/'),
+            onPressed: () =>
+                context.canPop() ? GoRouter.of(context).pop() : context.go('/'),
             icon: Icon(
               Icons.arrow_back,
-              color: Theme.of(context).colorScheme.onBackground,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
           actions: [
             Container(
               margin: const EdgeInsets.only(right: 20),
-              child: IconButton.outlined(
+              child: IconButton(
                   padding: const EdgeInsets.all(15),
                   onPressed: () {},
                   icon: Icon(
                     Icons.local_mall_outlined,
-                    color: Theme.of(context).colorScheme.onBackground,
+                    color: Theme.of(context).colorScheme.onSurface,
                   )),
             ),
           ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: _body(context),
-        ));
+        body: _body(context));
+  }
+}
+
+class WishListBody extends StatelessWidget {
+  const WishListBody({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }
 
 Widget _body(BuildContext context) {
-  return SingleChildScrollView(
-    padding: EdgeInsets.only(top: 20, bottom: 20),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('364 items', style: MyTextTheme().smallTitle,),
-            Text('in wishlist', style: MyTextTheme().defaultTextGray,),
-          ],
-        ),
-        const SizedBox(height: 20,),
-        GridView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: 10,
-            shrinkWrap: true,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              childAspectRatio: (1 / 1.64),
-              mainAxisSpacing: 15,
-              crossAxisSpacing: 15,
-              crossAxisCount: 2,
-            ),
-            itemBuilder: ((context, index) {
-              return ProductCard();
-            }))
-      ],
+  return ScrollConfiguration(
+    behavior: ScrollBehavior(),
+    child: SingleChildScrollView(
+      padding: EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '364 items',
+                style: MyTextTheme().smallTitle,
+              ),
+              Text(
+                'in wishlist',
+                style: MyTextTheme().defaultTextGray,
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          GridView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: 10,
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                childAspectRatio: (1 / 1.64),
+                mainAxisSpacing: 15,
+                crossAxisSpacing: 15,
+                crossAxisCount: 2,
+              ),
+              itemBuilder: ((context, index) {
+                return InkWell(
+                  borderRadius: BorderRadius.circular(10),
+                  onTap: () => context.push('/product/1'),
+                  child: ProductCard(),
+                );
+              }))
+        ],
+      ),
     ),
   );
 }
