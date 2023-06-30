@@ -20,7 +20,7 @@ ThemeData lightTheme = ThemeData(
 );
 
 ThemeData darkTheme = ThemeData(
-  splashFactory: InkSplash.splashFactory,
+  splashFactory: InkRipple.splashFactory,
   splashColor: mycolor.withOpacity(0.3),
   useMaterial3: true,
   brightness: Brightness.dark,

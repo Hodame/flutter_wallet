@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key});
+  final String image;
+  final String title;
+  final int price;
+  const ProductCard(
+      {super.key,
+      required this.image,
+      required this.title,
+      required this.price});
 
   @override
   Widget build(BuildContext context) {
@@ -14,30 +21,36 @@ class ProductCard extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(15)),
-            child: Image.network(
-              'https://content.rezetstore.dk/sites/default/files/styles/product_display_teaser_mobile/public/PIM-images/nike/2307569/nike-tech-woven-jacket-cobblestone-black-2307569-v2-759048.png',
-              fit: BoxFit.cover,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) {
-                  return child;
-                }
-                return SizedBox(
-                  height: 200,
-                  width: double.infinity,
-                  child: Container(
-                      alignment: Alignment.center,
-                      height: 50,
-                      width: 50,
-                      child: const CircularProgressIndicator()),
-                );
-              },
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: Image.network(
+                image,
+                fit: BoxFit.cover,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) {
+                    return child;
+                  }
+                  return SizedBox(
+                    height: 200,
+                    width: double.infinity,
+                    child: Container(
+                        alignment: Alignment.center,
+                        height: 50,
+                        width: 50,
+                        child: const CircularProgressIndicator()),
+                  );
+                },
+              ),
             ),
           ),
           Positioned(
             right: 0,
             child: IconButton(
               // isSelected: true,
-              selectedIcon: const Icon(Icons.favorite_rounded, color: Colors.red,),
+              selectedIcon: const Icon(
+                Icons.favorite_rounded,
+                color: Colors.red,
+              ),
               onPressed: () {},
               icon: const Icon(Icons.favorite_outline_rounded),
             ),
@@ -46,12 +59,12 @@ class ProductCard extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        const Text(
-          'Nike Sportswear Club Fleece',
+        Text(
+          '$title',
           style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
         ),
-        const Text(
-          '\$99',
+        Text(
+          '\$ $price',
           style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
         )
       ],

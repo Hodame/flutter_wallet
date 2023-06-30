@@ -1,12 +1,14 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_learn/components/myTextField.dart';
 import 'package:flutter_learn/components/productCard.dart';
+import 'package:flutter_learn/models/Products.dart';
 import 'package:flutter_learn/services/auth_service.dart';
 import 'package:flutter_learn/themes/theme.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -174,8 +176,32 @@ class ChooseBrand extends StatelessWidget {
   }
 }
 
-class NewArravial extends StatelessWidget {
+class NewArravial extends StatefulWidget {
   const NewArravial({super.key});
+
+  @override
+  State<NewArravial> createState() => _NewArravialState();
+}
+
+class _NewArravialState extends State<NewArravial> {
+  late Future<Products> products;
+
+  Future<Products> getProducts() async {
+    final response =
+        await http.get(Uri.parse('https://dummyjson.com/products'));
+
+    if (response.statusCode == 200) {
+      return Products.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Something went wrong');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    products = getProducts();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -199,22 +225,42 @@ class NewArravial extends StatelessWidget {
         const SizedBox(
           height: 15,
         ),
-        MasonryGridView.count(
-          physics: const NeverScrollableScrollPhysics(),
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          itemCount: 10,
-          crossAxisCount: 2,
-          mainAxisSpacing: 15,
-          crossAxisSpacing: 15,
-          itemBuilder: (context, index) {
-            return InkWell(
-              borderRadius: BorderRadius.circular(10),
-              onTap: () => context.push('/product/1'),
-              child: const ProductCard(),
-            );
-          },
-        ),
+        FutureBuilder(
+            future: products,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: snapshot.data!.products.length,
+                  shrinkWrap: true,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: (1 / 1.64),
+                    mainAxisSpacing: 15,
+                    crossAxisSpacing: 15,
+                    crossAxisCount: 2,
+                  ),
+                  itemBuilder: ((context, index) {
+                    return InkWell(
+                      borderRadius: BorderRadius.circular(15),
+                      onTap: () => context.push('/product/1'),
+                      child: ProductCard(
+                        image: snapshot.data!.products[index].images[0],
+                        title: snapshot.data!.products[index].title,
+                        price: snapshot.data!.products[index].price,
+                      ),
+                    );
+                  }),
+                );
+              } else if (snapshot.hasError) {
+                return Center(
+                    child: Text(
+                  'Something went wrong...',
+                  style: MyTextTheme().smallTitle,
+                ));
+              }
+
+              return const Center(child: CircularProgressIndicator());
+            }),
       ],
     );
   }

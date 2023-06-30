@@ -37,8 +37,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(darkModeBox.get('isDarkMode'));
-    print(_isDarkMode);
   }
 
   @override
